@@ -1,0 +1,116 @@
+{% load static %}
+{% load navbar %}
+{% navbar as regions %}
+
+<!-- Preloader -->
+<div id="preloader">
+    <div class="medilife-load"></div>
+</div>
+
+<!-- ***** Header Area Start ***** -->
+<header class="header-area">
+    <!-- Top Header Area -->
+    <div class="top-header-area">
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col-12 h-100">
+                    <div class="h-100 d-md-flex justify-content-between align-items-center">
+                        <p>Welcome to <span>MedLine</span></p>
+                        <p>Opening Hours : Monday to Saturday - 8am to 10pm Contact : <span>+998 91 250 75 95</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header Area -->
+    <div class="main-header-area" id="stickyHeader">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12 h-100">
+                    <div class="main-menu h-100">
+                        <nav class="navbar h-100 navbar-expand-lg">
+                            <!-- Logo Area  -->
+                            <a class="navbar-brand" href="index.html"><img src="{% static '/img/core-img/logo.png' %}"
+                                                                           alt="Logo"></a>
+
+
+                            <div class="collapse navbar-collapse" id="medilifeMenu">
+                                <!-- Menu Area -->
+                                <ul class="navbar-nav ml-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'hospital:home' %}">Home <span
+                                                class="sr-only"></span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="about-us.html">About Us</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'hospital:hospital_list' %}">Hospital</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'hospital:hospital_map_list' %}">Hospital_Map</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href=".">Services</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link" href=".">News</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href=".">Contact</a>
+                                    </li>
+                                </ul>
+                                <!-- Appointment Button -->
+
+                                <div class="dropdown">
+                                    <button class="btn medilife-appoint-btn ml-30 dropdown-toggle" type="button"
+                                            id="regionDropdown"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span id="selectedRegion">Region</span>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="regionDropdown">
+                                        {% for region in regions %}
+                                        <a class="dropdown-item region-item" href="#" data-region="{{ region.name }}">
+                                            {{ region.name }}</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        const regionItems = document.querySelectorAll(".region-item");
+                                        const selectedRegion = document.getElementById("selectedRegion");
+
+                                        // LocalStorage dan avvalgi tanlangan regionni olish
+                                        const savedRegion = localStorage.getItem("selectedRegion");
+                                        if (savedRegion) {
+                                            selectedRegion.textContent = savedRegion;
+                                        }
+
+                                        // Region tanlanganida URL`ni yangilash va LocalStorage`ga saqlash
+                                        regionItems.forEach(item => {
+                                            item.addEventListener("click", function (event) {
+                                                event.preventDefault();
+                                                const regionName = this.getAttribute("data-region");
+                                                selectedRegion.textContent = regionName;
+                                                localStorage.setItem("selectedRegion", regionName);
+
+                                                // URL`ni yangilash
+                                                const currentUrl = new URL(window.location);
+                                                currentUrl.searchParams.set('region', regionName);
+                                                window.location.href = currentUrl.toString();  // Sahifani yangilash
+                                            });
+                                        });
+                                    });
+                                </script>
+
+
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ***** Header Area End ***** -->

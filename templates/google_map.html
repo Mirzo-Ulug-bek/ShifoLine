@@ -1,0 +1,42 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>Hospital Locations</h1>
+    <div id="map" style="width: 100%; height: 600px;"></div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0mA9uPGKVwKi4GOXDMGDWESAYwR5JxkE"></script>
+    <script>
+    function initMap() {
+        var center = JSON.parse('{{ map_center|safe }}');  // Backend-dan kelgan markaz
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 12,
+            center: center
+        });
+
+            // JSON ma'lumotlarini to'g'ri formatda olish
+            var hospitals = {{ hospitals_json|safe }};
+
+            hospitals.forEach(hospital => {
+                if (hospital.latitude && hospital.longitude) {
+                    var marker = new google.maps.Marker({
+                        position: {lat: parseFloat(hospital.latitude), lng: parseFloat(hospital.longitude)},
+                        map: map,
+                        title: hospital.name
+                    });
+
+                    var infowindow = new google.maps.InfoWindow({
+                        content: `<h3>${hospital.name}</h3><p>${hospital.address}</p>
+                                  <a href="https://www.google.com/maps?q=${hospital.latitude},${hospital.longitude}" target="_blank">
+                                  Google Maps-da ko'rish</a>`
+                    });
+
+                    marker.addListener('click', function() {
+                        infowindow.open(map, marker);
+                    });
+                }
+            });
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>MedLine </title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="{% static 'img/core-img/favicon.ico' %}">
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="{% static 'styles/css/style.css' %}">
+
+</head>
+<body onload="initMap()">
+
+
+{% if messages %}
+	{% include 'messages.html' %}
+
+{% else %}
+    {% include 'navbar.html' %}
+{% endif %}
+
+
+
+{% block content %}
+
+
+
+{% endblock %}
+
+
+
+
+
+
+{% include 'footer.html' %}
+
+
+<script src="{% static 'styles/js/jquery/jquery-2.2.4.min.js' %}"></script>
+<script src="{% static 'styles/js/popper.min.js' %}"></script>
+<script src="{% static 'styles/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'styles/js/plugins.js' %}"></script>
+<script src="{% static 'styles/js/active.js' %}"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"918f69f0cbb32d75","version":"2025.1.0","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"token":"cd0b4b3a733644fc843ef0b185f98241","b":1}' crossorigin="anonymous"></script>
+</body>
+</html>
